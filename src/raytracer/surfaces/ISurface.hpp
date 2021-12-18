@@ -1,6 +1,7 @@
 #ifndef RAYTRACER_ISURFACE_HPP
 #define RAYTRACER_ISURFACE_HPP
 
+#include <exception>
 #include "../../math3d/Vector3D.hpp"
 #include "../Traceable.hpp"
 
@@ -20,6 +21,6 @@ class ISurface {
 template <typename CoordType>
 using ISurfacePtr = std::shared_ptr<ISurface<CoordType>>;
 
-}  // namespace objects
+}  // namespace surfaces
 
 #endif

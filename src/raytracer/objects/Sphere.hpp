@@ -41,7 +41,9 @@ class Sphere : public IObject<CoordType> {
 
   virtual Color IntersectColor(math3d::Ray<CoordType> ray) {
     auto intersection = Intersects(ray);
-    assert(intersection.has_value());  // TODO: rise error
+    if (!intersection.has_value()) {
+      throw NoIntersection();
+    }
 
     math3d::Vector3D<CoordType> hit =
         ray.point + math3d::Norm(ray.direction) * intersection.value();

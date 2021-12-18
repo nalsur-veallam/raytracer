@@ -2,6 +2,7 @@
 #define RAYTRACER_VECTOR3D_HPP
 
 #include <math.h>
+#include <random>
 
 class Vector3D;
 namespace math3d {
@@ -90,7 +91,8 @@ Vector3D<T> NormAndRotate90(Vector3D<T> v) {
 
 template <typename T>
 T RandomUniform() {
-  return static_cast<T>(rand()) / static_cast<float>(RAND_MAX);
+  static thread_local std::mt19937 generator;
+  return static_cast<T>(generator()) / static_cast<float>(UINT32_MAX);
 }
 
 template <typename T>
