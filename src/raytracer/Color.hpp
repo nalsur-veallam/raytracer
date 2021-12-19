@@ -5,7 +5,7 @@ struct Color {
   double r, g, b;
 
   static Color Default();
-}; // TODO: more operators
+};  // TODO: more operators
 
 Color operator+(Color a, Color b);
 

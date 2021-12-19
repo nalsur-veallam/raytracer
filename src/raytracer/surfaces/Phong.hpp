@@ -32,6 +32,10 @@ class Phong : public surfaces::ISurface<CoordType> {
     Color diffuse{0, 0, 0};
     Color specular{0, 0, 0};
 
+    if (n_reflections_ == 0) {
+      return ambient;
+    }
+
     for (size_t i = 0; i < n_reflections_; ++i) {
       auto random_unit = math3d::RandomUnitVector<CoordType>();
       random_unit.y = abs(random_unit.y);
@@ -60,6 +64,16 @@ class Phong : public surfaces::ISurface<CoordType> {
   size_t n_reflections_;
 };
 
-}  // namespace objects
+template<typename CoordType>
+ISurfacePtr<CoordType> MakeGlowingSurface(CoordType intensity, Traceable<CoordType>* scene) {
+  return std::make_shared<Phong<CoordType>>(intensity, 0, 0, scene, 0);
+}
+
+template<typename CoordType>
+ISurfacePtr<CoordType> MakeOpaqueSurface(CoordType opacity, CoordType gloss, Traceable<CoordType>* scene, size_t quality) {
+  return std::make_shared<Phong<CoordType>>(0, opacity, gloss, scene, quality);
+}
+
+}  // namespace surfaces
 
 #endif
